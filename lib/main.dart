@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:restaurant_app/models/shop.dart';
+import 'package:restaurant_app/pages/cart_page.dart';
 import 'package:restaurant_app/pages/menu_page.dart';
 import 'pages/intro_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(create: (context) => Shop(), child: const MyApp(),)
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -13,10 +18,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: IntroPage(),
+      home: const IntroPage(),
       routes: {
         '/intropage': (context) => const IntroPage(),
         '/menupage': (context) => const MenuPage(),
+        '/cartpage': (context) => const CartPage(),
       },
     );
   }

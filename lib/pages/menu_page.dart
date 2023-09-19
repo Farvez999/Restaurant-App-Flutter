@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:restaurant_app/components/button.dart';
 import 'package:restaurant_app/components/food_tile.dart';
 import 'package:restaurant_app/models/food.dart';
+import 'package:restaurant_app/models/shop.dart';
 import 'package:restaurant_app/pages/food_details_page.dart';
 import 'package:restaurant_app/theme/colors.dart';
 
@@ -16,30 +18,47 @@ class MenuPage extends StatefulWidget {
 class _MenuPageState extends State<MenuPage> {
 
   // food List
-  List foodMenu = [
-
-    Food(name: "Salmon Sushi", price: "21.0", imagePath: "lib/images/salmon_sushi.png", rating: "5"),
-
-    Food(name: "Tuna", price: "20.0", imagePath: "lib/images/tuna.png", rating: "4.5")
-
-  ];
+  // List foodMenu = [
+  //
+  //   Food(name: "Salmon Sushi", price: "21.0", imagePath: "lib/images/salmon_sushi.png", rating: "5"),
+  //
+  //   Food(name: "Tuna", price: "20.0", imagePath: "lib/images/tuna.png", rating: "4.5")
+  //
+  // ];
 
   void navigateToFoodDetails(int index){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => FoodDetailsPage(),),);
+    // get the shop and its menu
+    final shop = context.read<Shop>();
+    final foodMenu = shop.foodMenu;
+
+    Navigator.push(context, MaterialPageRoute(builder: (context) => FoodDetailsPage(
+      food: foodMenu[index],
+    ),),);
   }
 
   @override
   Widget build(BuildContext context) {
+    // get the shop and its menu
+    final shop = context.read<Shop>();
+    final foodMenu = shop.foodMenu;
+
     return Scaffold(
       backgroundColor: Colors.grey[300],
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: Icon(
+        foregroundColor: Colors.grey[800],
+        leading: const Icon(
           Icons.menu,
-          color: Colors.grey[900]
         ),
         title: Text('Tokyo', style: TextStyle(color: Colors.grey[900]),),
+
+        actions: [
+        //   Cart Button
+          IconButton(onPressed: (){
+            Navigator.pushNamed(context, '/cartpage');
+          }, icon: const Icon(Icons.shopping_cart),)
+        ],
       ),
 
       body: Column(

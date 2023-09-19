@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:restaurant_app/components/button.dart';
+import 'package:restaurant_app/theme/colors.dart';
 
 class IntroPage extends StatelessWidget {
   const IntroPage({super.key});
@@ -8,7 +9,7 @@ class IntroPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 138, 60, 55),
+      backgroundColor: primaryColor,
       body: Padding(
         padding: EdgeInsets.all(25.0),
         child: Column(
